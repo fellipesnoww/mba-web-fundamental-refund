@@ -54,6 +54,7 @@ function expenseAdd(newExpense) {
         expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon);
         expenseList.append(expenseItem);
 
+        formClear();
         updateTotals();
 
     } catch (error) {
@@ -96,6 +97,14 @@ function updateTotals() {
     }
 }
 
+function formClear() {
+    amount.value = "";
+    expense.value = "";
+    category.value = "";
+
+    expense.focus();
+}
+
 form.onsubmit = (event) => {
     event.preventDefault();
 
@@ -108,7 +117,6 @@ form.onsubmit = (event) => {
         created_at: new Date(),
     }
 
-    console.log(newExpense);
     expenseAdd(newExpense);
 }
 
@@ -117,6 +125,6 @@ expenseList.addEventListener("click", (event) => {
         const item = event.target.closest(".expense");
         item.remove();      
     }
-    
+
     updateTotals();
 })
