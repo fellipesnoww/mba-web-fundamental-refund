@@ -111,3 +111,12 @@ form.onsubmit = (event) => {
     console.log(newExpense);
     expenseAdd(newExpense);
 }
+
+expenseList.addEventListener("click", (event) => {
+    if(event.target.classList.contains("remove-icon")){
+        const item = event.target.closest(".expense");
+        item.remove();      
+    }
+    
+    updateTotals();
+})
