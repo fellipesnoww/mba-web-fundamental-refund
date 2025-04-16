@@ -2,6 +2,7 @@ const expense = document.getElementById("expense");
 const amount = document.getElementById("amount");
 const category = document.getElementById("category");
 const form = document.querySelector("form");
+const expenseList = document.querySelector("ul");
 
 function formatCurrencyBRL(value){
     value = value.toLocaleString("pt-BR", {
@@ -19,6 +20,35 @@ amount.oninput = () => {
 }
 
 
+function expenseAdd(newExpense) {
+    try {
+        const expenseItem = document.createElement("li");
+        expenseItem.classList.add("expense");
+        
+        const expenseIcon = document.createElement("img");
+        expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`);
+        expenseIcon.setAttribute("alt", newExpense.category_name);
+
+        const expenseInfo = document.createElement("div");
+        expenseInfo.classList.add("expense-info");
+
+        const expenseName = document.createElement("strong");
+        expenseName.textContent = newExpense.expense;
+
+        const expenseCategory = document.createElement("span");
+        expenseCategory.textContent = newExpense.category_name;
+
+        expenseInfo.append(expenseName, expenseCategory);
+
+        expenseItem.append(expenseIcon, expenseInfo);
+        expenseList.append(expenseItem);
+
+    } catch (error) {
+        console.error("Error adding expense:", error);
+        alert("Não foi possível adicionar a despesa. Tente novamente mais tarde.");
+    }
+}
+
 form.onsubmit = (event) => {
     event.preventDefault();
 
@@ -32,4 +62,5 @@ form.onsubmit = (event) => {
     }
 
     console.log(newExpense);
+    expenseAdd(newExpense);
 }
